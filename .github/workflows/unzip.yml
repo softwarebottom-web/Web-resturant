@@ -1,18 +1,26 @@
-name: Unzip app.zip
+name: Unzip + Restructure
 on: push
 jobs:
-  unzip:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Extract app.zip
         run: |
           unzip -o app.zip
           rm app.zip
-      - name: Push hasil extract
+          
+      - name: Move files from app/ to root
+        run: |
+          shopt -s dotglob
+          mv app/* .
+          rm -r app
+          
+      - name: Push changes
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Auto extracted app.zip 🗿" || exit 0
+          git commit -m "Unzip + move to root by Kimi 🗿" || exit 0
           git push
