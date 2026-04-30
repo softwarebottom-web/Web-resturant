@@ -5,14 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract ZIP
+      - name: Extract app.zip
         run: |
           unzip -o app.zip
           rm app.zip
-      - name: Push extracted files
+      - name: Push hasil extract
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Auto extracted by Actions 🗿" || exit 0
+          git commit -m "Auto extracted app.zip 🗿" || exit 0
           git push
