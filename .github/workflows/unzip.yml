@@ -1,6 +1,6 @@
 name: Move app folder to root
-on: 
-  workflow_dispatch  # INI WAJIB ADA BIAR BISA MANUAL
+on:
+  workflow_dispatch:
   push:
     paths:
       - 'app/**'
