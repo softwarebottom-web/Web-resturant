@@ -1,26 +1,21 @@
-name: Unzip + Restructure
-on: push
+name: Move app to root
+on: workflow_dispatch  # biar bisa jalan manual
 jobs:
-  setup:
+  move:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      - name: Extract app.zip
-        run: |
-          unzip -o app.zip
-          rm app.zip
-          
-      - name: Move files from app/ to root
+      - name: Pindahin isi app ke root
         run: |
           shopt -s dotglob
-          mv app/* .
-          rm -r app
+          mv app/* . 
+          rm -rf app
           
-      - name: Push changes
+      - name: Push hasil pindah
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add .
-          git commit -m "Unzip + move to root by Kimi 🗿" || exit 0
+          git add -A
+          git commit -m "Move app contents to root 🗿" || exit 0
           git push
