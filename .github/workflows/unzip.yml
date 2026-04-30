@@ -1,18 +1,18 @@
-name: Move app to root
-on: workflow_dispatch  # biar bisa jalan manual
+name: Move app folder to root
+on: workflow_dispatch
 jobs:
   move:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      - name: Pindahin isi app ke root
+      - name: Move files from app/ to root
         run: |
           shopt -s dotglob
-          mv app/* . 
-          rm -rf app
+          mv app/* . || echo "Folder app kosong/ga ada"
+          rm -rf app || echo "Folder app udah kehapus"
           
-      - name: Push hasil pindah
+      - name: Push changes
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
